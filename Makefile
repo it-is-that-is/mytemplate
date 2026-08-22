@@ -25,7 +25,7 @@ deps:
 clean:
 	find . | grep -E "(__pycache__|\.pyc|\.DS_Store|\.db|\.pyo$\)" | xargs rm -rf
 
-lint:
+lint-flake8:
 	flake8 --exclude=env .
 
 test:

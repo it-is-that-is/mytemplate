@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="1" time="5.213" timestamp="2026-08-22T15:40:40.121743" hostname="ip-172-31-11-200"><testcase classname="tests.test_ui_login" name="test_login_flow_reaches_dashboard[chromium]" time="5.178" /></testsuite></testsuites>
