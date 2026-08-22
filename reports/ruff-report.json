@@ -495,20 +495,55 @@
   },
   {
     "cell": null,
+    "code": "F811",
+    "end_location": {
+      "column": 10,
+      "row": 5
+    },
+    "filename": "/home/ubuntu/mytemplate/manage.py",
+    "fix": {
+      "applicability": "safe",
+      "edits": [
+        {
+          "content": "",
+          "end_location": {
+            "column": 1,
+            "row": 6
+          },
+          "location": {
+            "column": 1,
+            "row": 5
+          }
+        }
+      ],
+      "message": "Remove definition: `os`"
+    },
+    "location": {
+      "column": 8,
+      "row": 5
+    },
+    "message": "Redefinition of unused `os` from line 1: `os` redefined here",
+    "name": "redefined-while-unused",
+    "noqa_row": 5,
+    "severity": "error",
+    "url": "https://docs.astral.sh/ruff/rules/redefined-while-unused"
+  },
+  {
+    "cell": null,
     "code": "F403",
     "end_location": {
       "column": 29,
-      "row": 14
+      "row": 15
     },
     "filename": "/home/ubuntu/mytemplate/manage.py",
     "fix": null,
     "location": {
       "column": 1,
-      "row": 14
+      "row": 15
     },
     "message": "`from appname.models import *` used; unable to detect undefined names",
     "name": "undefined-local-with-import-star",
-    "noqa_row": 14,
+    "noqa_row": 15,
     "severity": "error",
     "url": "https://docs.astral.sh/ruff/rules/undefined-local-with-import-star"
   },
@@ -517,7 +552,7 @@
     "code": "W291",
     "end_location": {
       "column": 47,
-      "row": 26
+      "row": 27
     },
     "filename": "/home/ubuntu/mytemplate/manage.py",
     "fix": {
@@ -527,11 +562,11 @@
           "content": "",
           "end_location": {
             "column": 47,
-            "row": 26
+            "row": 27
           },
           "location": {
             "column": 46,
-            "row": 26
+            "row": 27
           }
         }
       ],
@@ -539,11 +574,11 @@
     },
     "location": {
       "column": 46,
-      "row": 26
+      "row": 27
     },
     "message": "Trailing whitespace",
     "name": "trailing-whitespace",
-    "noqa_row": 29,
+    "noqa_row": 30,
     "severity": "error",
     "url": "https://docs.astral.sh/ruff/rules/trailing-whitespace"
   },

@@ -47,3 +47,49 @@ agent-smoke:
 agent-test:
 	@if [ ! -x "$(VENV_PYTHON)" ]; then echo "Run 'make agent-setup' first."; exit 1; fi
 	APPNAME_ENV=test $(VENV_PYTHON) -m pytest --cov-report=term-missing --cov=appname $(AGENT_TEST_FILES)
+
+# --- New: DevOps/QA assessment pipeline targets ----------------------------
+
+setup: agent-setup
+	env/bin/pip install -r requirements-dev.txt
+	env/bin/python -m playwright install --with-deps chromium
+
+resetdb:
+	python manage.py resetdb
+
+run:
+	python -m flask --debug run
+
+# Backend tests with coverage + JUnit XML. Excludes the UI test (needs a
+# live server - see test-ui below) and deselects a pre-existing test that
+# requires a local Redis server.
+test-backend:
+	mkdir -p reports
+	python -m pytest tests/ --ignore=tests/test_ui_login.py \
+		--junitxml=reports/junit.xml \
+		--cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/coverage_html
+
+# UI tests (Playwright). Requires the app already running locally
+# (run `make run` in a separate terminal first) at http://127.0.0.1:5000.
+test-ui:
+	mkdir -p reports
+	python -m pytest tests/test_ui_login.py --junitxml=reports/junit-ui.xml -v
+
+lint:
+	mkdir -p reports
+	-python -m ruff check . --output-format=json --output-file=reports/ruff-report.json
+	-python -m ruff check .
+
+security:
+	mkdir -p reports
+	-python -m bandit -r . -x "./env,./tests,./__pycache__" -f json -o reports/bandit-report.json
+	-python -m bandit -r . -x "./env,./tests,./__pycache__"
+
+# Everything that doesn't need a live server.
+report: test-backend lint security
+	@echo "Reports available in ./reports"
+
+# Full pipeline including UI tests. Requires the app running separately
+# first (make run, in another terminal).
+ci: report test-ui
+	@echo "CI pipeline complete. Reports available in ./reports"
