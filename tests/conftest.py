@@ -1,4 +1,5 @@
 import os
+
 import pytest
 
 # ProdConfig reads DATABASE_URL at import time. Ensure tests always have a valid URL.
@@ -7,6 +8,7 @@ os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
 from appname import create_app
 from appname.models import db
 from appname.models.user import User
+
 
 @pytest.fixture()
 def testapp(request):

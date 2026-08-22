@@ -14,5 +14,5 @@ def url_safe_token():
 def generate_api_secret(user):
     base64token = base64.urlsafe_b64encode(uuid.uuid4().bytes)
     user_secret = (base64token.decode('utf-8').replace('=', '').replace('-', '').replace('_', ''))
-    api_key = "{}-{}".format(user.hashid, user_secret)
+    api_key = f"{user.hashid}-{user_secret}"
     return api_key

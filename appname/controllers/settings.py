@@ -1,17 +1,22 @@
-from flask import Blueprint, render_template, flash, redirect, url_for, Response, request
-from flask_login import login_required, current_user
+from flask import (
+    Blueprint,
+    Response,
+    flash,
+    redirect,
+    render_template,
+    request,
+    url_for,
+)
+from flask_login import current_user, login_required
 
-
-from appname.extensions import stripe
-from appname.models import db
-from appname.forms import SimpleForm
-from appname.forms.login import ChangePasswordForm
-from appname.forms.account import ChangeProfileForm
-from appname.helpers.gdpr import GDPRExport
-from appname.utils.token import generate_api_secret
 from appname.billing_plans import plans_by_name
-
-from appname.extensions import stripe, branding
+from appname.extensions import branding, stripe
+from appname.forms import SimpleForm
+from appname.forms.account import ChangeProfileForm
+from appname.forms.login import ChangePasswordForm
+from appname.helpers.gdpr import GDPRExport
+from appname.models import db
+from appname.utils.token import generate_api_secret
 
 settings_blueprint = Blueprint('user_settings', __name__)
 
@@ -75,7 +80,7 @@ def api():
         api_key = generate_api_secret(current_user)
         current_user.hash_api_key(api_key)
 
-        flash("Your API Key is: '{}'. It will not be displayed again, so make sure you save it.".format(api_key),
+        flash(f"Your API Key is: '{api_key}'. It will not be displayed again, so make sure you save it.",
               'success')
     return render_template('/settings/api.html', form=form)
 
@@ -118,7 +123,7 @@ def account_deletion():
     form = SimpleForm()
     if form.validate_on_submit():
         # TODO: Actual deletion scheduling
-        flash("Please email {0} to delete your account".format(branding.support_email), 'warning')
+        flash(f"Please email {branding.support_email} to delete your account", 'warning')
     else:
         flash('Please try submitting the form again', 'warning')
     return redirect(url_for("user_settings.legal_compliance"))

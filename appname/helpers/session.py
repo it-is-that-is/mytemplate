@@ -1,6 +1,7 @@
 # Utility methods to grab info from the current session
-from flask import session, redirect, flash, url_for
+from flask import flash, redirect, session, url_for
 from flask_login import current_user
+
 
 def current_membership():
     session_id = session.get('current_team_membership_id')

@@ -1,11 +1,10 @@
-from flask import redirect, url_for, request
+import flask_admin as admin
+from flask import redirect, request, url_for
+from flask_admin.contrib import sqla
+from flask_admin.form import SecureForm
 from flask_login import current_user
 
-import flask_admin as admin
-from flask_admin.form import SecureForm
-from flask_admin.contrib import sqla
-
-from appname.models import db, ModelProxy
+from appname.models import ModelProxy, db
 from appname.models.user import User
 
 # Unfortunately, ModelProxy seems to be the only way to safely import other models
@@ -27,7 +26,7 @@ class AdminHomeView(admin.AdminIndexView):
         self._template_args['user_count'] = User.query.count()
         self._template_args['team_count'] = team_model.query.count()
         self._template_args['paid_count'] = team_model.query.filter(team_model.plan != 'free').count()
-        return super(AdminHomeView, self).index()
+        return super().index()
 
 
 class AdminModelView(sqla.ModelView):

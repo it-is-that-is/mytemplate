@@ -1,18 +1,19 @@
+import os
 #!/usr/bin/env python
 
-import os
 import binascii
+import os
 
 import click
 import pytest
-
 from flask_migrate import Migrate
 
 from appname import create_app
-from appname.models import db
 from appname.extensions import cache
+
 # Explictly import models here to to get Flask Migrate to pick them up
-from appname.models import *  # noqa
+from appname.models import *
+from appname.models import db
 from appname.models.user import User
 
 # default to dev config because this should not be run in production
@@ -27,7 +28,7 @@ def server():
     ` $ FLASK_APP=manage flask --debug run `
     Do not use this for production (since it runs in debug mode)
     """
-    return app.run(debug=True)
+    return app.run(debug=os.getenv("APPNAME_ENV", "dev") != "prod")
 
 @app.cli.command()
 def initdb():
@@ -39,7 +40,7 @@ def initdb():
 
 def actually_drop_tables():
     if env != 'dev':
-        confirm = input("Are you sure you want to run this on {}?".format(env))
+        confirm = input(f"Are you sure you want to run this on {env}?")
         if confirm.lower().strip() != 'yes':
             return
     click.echo('Dropping the db')

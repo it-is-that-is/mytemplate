@@ -1,15 +1,14 @@
     # API
 from flask import flash
-from flask_login import current_user, login_user
-from flask_dance.contrib.google import make_google_blueprint
 from flask_dance.consumer import oauth_authorized, oauth_error
 from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
+from flask_dance.contrib.google import make_google_blueprint
+from flask_login import current_user, login_user
 from sqlalchemy.orm.exc import NoResultFound
 
-from appname.models import db
 from appname.extensions import cache
-from appname.models.user import User, OAuth
-
+from appname.models import db
+from appname.models.user import OAuth, User
 
 blueprint = make_google_blueprint(
     scope=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email",
@@ -64,7 +63,7 @@ def google_logged_in(blueprint, token):
         db.session.add(oauth)
         db.session.commit()
         login_user(existing_user)
-        flash("Successfully signed in as {}".format(existing_user.email), 'success')
+        flash(f"Successfully signed in as {existing_user.email}", 'success')
     else:
         # Create a new local user account for this user
         user = User(email=google_info["email"], name=google_info["name"],
@@ -85,7 +84,5 @@ def google_logged_in(blueprint, token):
 # notify on OAuth provider error
 @oauth_error.connect_via(blueprint)
 def google_error(blueprint, message, response):
-    msg = ("OAuth error from {name}! " "message={message} response={response}").format(
-        name=blueprint.name, message=message, response=response
-    )
+    msg = (f"OAuth error from {blueprint.name}! " f"message={message} response={response}")
     flash(msg, category="error")

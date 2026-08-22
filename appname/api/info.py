@@ -1,7 +1,7 @@
-from flask_restful import marshal_with
-from flask_restful import fields
+from flask_restful import fields, marshal_with
 
-from appname.api import Resource, BaseAPISchema, API_VERSION
+from appname.api import API_VERSION, BaseAPISchema, Resource
+
 
 class APISchema(BaseAPISchema):
     get_fields = {
@@ -18,6 +18,6 @@ class APIInfo(Resource):
     def get(self):
         return {
             'version': API_VERSION,
-            'url': '/api/{0}/info'.format(API_VERSION),
+            'url': f'/api/{API_VERSION}/info',
             'documentation': 'Add api_key as a URL query parameter to authenticate'
         }

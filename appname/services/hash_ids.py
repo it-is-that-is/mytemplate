@@ -1,5 +1,6 @@
 from hashids import Hashids
 
+
 class HashIds:
     def init_app(self, app):
         salt = app.config.get('SECRET_KEY', 'appname-hashids-secret')
@@ -11,5 +12,5 @@ class HashIds:
     def decode_id(self, value):
         numbers = self.hashids.decode(value)
         if len(numbers) != 1:
-            raise ValueError('Could not decode hash {0} into ID'.format(value))
+            raise ValueError(f'Could not decode hash {value} into ID')
         return numbers[0]

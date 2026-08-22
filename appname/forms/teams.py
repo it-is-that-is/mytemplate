@@ -1,7 +1,8 @@
-from appname.forms import BaseForm
-from wtforms import validators, StringField, SelectField
+from wtforms import SelectField, StringField, validators
 
 from appname.constants import TEAM_MEMBER_ROLES
+from appname.forms import BaseForm
+
 
 class InviteMemberForm(BaseForm):
     email = StringField('Email', validators=[validators.email(), validators.InputRequired()])

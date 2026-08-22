@@ -2,4 +2,4 @@
 # as `view_helpers.method`
 
 def format_money(amount, currency):
-    return "{0} {1}".format(amount, currency)
+    return f"{amount} {currency}"

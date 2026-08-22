@@ -2,12 +2,13 @@ from werkzeug.routing import BaseConverter, ValidationError
 
 from appname.extensions import hashids
 
+
 class BoolConverter(BaseConverter):
     def __init__(self, url_map, false_value, true_value):
-        super(BoolConverter, self).__init__(url_map)
+        super().__init__(url_map)
         self.false_value = false_value
         self.true_value = true_value
-        self.regex = '(?:{0}|{1})'.format(false_value, true_value)
+        self.regex = f'(?:{false_value}|{true_value})'
 
     def to_python(self, value):
         return value == self.true_value

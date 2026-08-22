@@ -6,8 +6,8 @@ import os
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.query import Query as BaseQuery
-from sqlalchemy_utils import force_auto_coercion, force_instant_defaults
 from sqlalchemy import MetaData
+from sqlalchemy_utils import force_auto_coercion, force_instant_defaults
 
 convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -39,7 +39,7 @@ def global_encryption_key_iv():
     NEVER reveal the value of this.
     """
     flask_secret = os.getenv('DB_ENCRYTPION_SECRET_KEY', 'REPLACE MEasdaappnamesdas#!3de*o0alas')
-    padded_secret = "{:<32}".format(flask_secret)[0:32]
+    padded_secret = f"{flask_secret:<32}"[0:32]
     return base64.urlsafe_b64encode(padded_secret.encode())
 
 # Want to keep track of changes to your models? SQLAlchemy-Continuum will help!
@@ -51,7 +51,7 @@ class QueryWithSoftDelete(BaseQuery):
     License: MIT License
     """
     def __new__(cls, *args, **kwargs):
-        obj = super(QueryWithSoftDelete, cls).__new__(cls)
+        obj = super().__new__(cls)
         with_deleted = kwargs.pop('_with_deleted', False)
         obj._with_deleted = with_deleted
         if len(args) > 0:
@@ -100,7 +100,7 @@ class Model(db.Model):
                 key_val = pk[0].name
             else:
                 key_val = self.__mapper__.primary_key._list[0].name
-        return '<{0} {1}>'.format(self.__class__.__name__, key_val)
+        return f'<{self.__class__.__name__} {key_val}>'
 
     def delete(self, force=False):
         """ if force is called - it removes it from the database.
@@ -110,8 +110,8 @@ class Model(db.Model):
             db.session.delete(self)
             return db.session.commit()
         if force and not self.can_be_destroyed:
-            logger.warning('Model {0} is not able to be force deleted'.format(self))
-            raise Exception('Cannot force destroy {0}'.format(self))
+            logger.warning(f'Model {self} is not able to be force deleted')
+            raise Exception(f'Cannot force destroy {self}')
         self.deleted = True
         return db.session.commit()
 

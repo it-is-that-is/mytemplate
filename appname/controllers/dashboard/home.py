@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, abort, redirect, url_for, flash
-from flask_login import login_required, current_user
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask_login import current_user, login_required
 
 from appname.models import get_or_none
 from appname.models.teams import Team

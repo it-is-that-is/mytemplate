@@ -1,12 +1,11 @@
-from itertools import product
 import logging
-from flask import Blueprint, request, url_for, abort
 
-from appname.models import db, get_or_none
-from appname.models.user import User
-from appname.models.teams import Team
+from flask import Blueprint, request
+
+from appname.billing_plans import MonthlyPremium, plans_by_price_id
 from appname.extensions import csrf, stripe
-from appname.billing_plans import plans_by_price_id, MonthlyPremium
+from appname.models import db, get_or_none
+from appname.models.teams import Team
 
 stripe_blueprint = Blueprint('checkout', __name__)
 

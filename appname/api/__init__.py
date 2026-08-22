@@ -1,8 +1,7 @@
-from flask import Blueprint, request, jsonify
-
-from flask_restful.representations.json import output_json
-from flask_restful import reqparse, fields, abort
 import flask_restful as restful
+from flask import Blueprint, jsonify, request
+from flask_restful import abort, fields, reqparse
+from flask_restful.representations.json import output_json
 
 from appname.extensions import login_manager
 from appname.models.user import User
@@ -70,13 +69,13 @@ class Resource(restful.Resource):
     # applies to all inherited resources
 
     def __repr__(self):
-        return "<Resource {0}>".format(self.__class__.__name__)
+        return f"<Resource {self.__class__.__name__}>"
 
     def make_response(self, data, *args, **kwargs):
         return super().make_response(data, *args, **kwargs)
 
 
-class BaseAPISchema():
+class BaseAPISchema:
     """ APISchema describes the input and output formats for
     resources. The parser deals with arguments to the API.
     The API responses are marshalled to json through get_fields

@@ -1,8 +1,9 @@
-import os
 import logging
+import os
 
 from appname.extensions import stripe
-from appname.models import db, ModelProxy
+from appname.models import ModelProxy, db
+
 logger = logging.getLogger(__name__)
 
 METERED = 'metered_by_user'
@@ -42,12 +43,12 @@ class BasePlan:
             subscription_items_for_this_plan = [s for s in all_subscription_items
                                                 if s['product'] == self.stripe_product_id]
             if len(subscription_items_for_this_plan) < 1:
-                logger.debug("Failed on subscription ID {}".format(self.team.subscription_id))
+                logger.debug(f"Failed on subscription ID {self.team.subscription_id}")
                 raise Exception('Could not find billing for this product')
             subscription_item = subscription_items_for_this_plan[0]
 
             quantity = len(self.team.active_members)
-            logger.debug("Setting subscription for team {} to {}".format(self.team.id, quantity))
+            logger.debug(f"Setting subscription for team {self.team.id} to {quantity}")
             stripe.report_usage(subscription_item.id, quantity)
 
     @classmethod

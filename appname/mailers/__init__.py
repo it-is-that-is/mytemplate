@@ -7,6 +7,7 @@ from flask_mail import Message
 
 from appname.extensions import mail, rq2
 
+
 @rq2.job
 def send_email_raw(to_emails, subject, html_body,
                    text_body=None, conn=None, **kwargs):

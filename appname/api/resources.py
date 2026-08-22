@@ -1,9 +1,9 @@
 from flask import redirect, url_for
-from flask_restful import abort
 
-from appname.api import api, api_blueprint, API_VERSION, API_BASE
+from appname.api import API_VERSION, api, api_blueprint
 from appname.api.info import APIInfo
 from appname.api.user import CurrentUserInfo
+
 
 @api_blueprint.record
 def record_params(setup_state):
@@ -17,5 +17,5 @@ def record_params(setup_state):
 def home():
     return redirect(url_for('api.apiinfo'))
 
-api.add_resource(APIInfo, '/{0}/info'.format(API_VERSION))
-api.add_resource(CurrentUserInfo, '/{0}/user/current'.format(API_VERSION))
+api.add_resource(APIInfo, f'/{API_VERSION}/info')
+api.add_resource(CurrentUserInfo, f'/{API_VERSION}/user/current')

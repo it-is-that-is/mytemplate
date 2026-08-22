@@ -1,7 +1,7 @@
+import rq_dashboard
 from flask import abort, current_app
 from flask_login import current_user
 
-import rq_dashboard
 jobs = rq_dashboard.blueprint
 
 @jobs.before_request

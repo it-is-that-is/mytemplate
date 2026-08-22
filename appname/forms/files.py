@@ -1,5 +1,7 @@
+from wtforms import FileField, TextAreaField, validators
+
 from appname.forms import BaseForm
-from wtforms import validators, TextAreaField, FileField
+
 
 class FileForm(BaseForm):
     description = TextAreaField('Description')

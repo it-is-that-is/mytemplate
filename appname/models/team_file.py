@@ -1,4 +1,5 @@
-from appname.models import db, Model
+from appname.models import Model, db
+
 
 class TeamFile(Model):
     id = db.Column(db.Integer(), primary_key=True)

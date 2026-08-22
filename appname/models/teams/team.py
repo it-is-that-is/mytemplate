@@ -1,6 +1,7 @@
 import logging
-from appname.models import db, Model, ModelProxy, transaction
-from appname.billing_plans import plans_by_name, FreePlan
+
+from appname.billing_plans import FreePlan, plans_by_name
+from appname.models import Model, ModelProxy, db, transaction
 
 logger = logging.getLogger(__name__)
 

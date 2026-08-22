@@ -1,8 +1,9 @@
 from flask import render_template, url_for
 
-import appname.constants as constants
-from appname.mailers import Mailer
+from appname import constants
 from appname.extensions import token
+from appname.mailers import Mailer
+
 
 class ConfirmEmail(Mailer):
     TEMPLATE = 'email/confirm_email.html'

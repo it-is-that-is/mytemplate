@@ -1,13 +1,11 @@
-from flask import Blueprint, render_template, flash, abort, redirect, url_for, session
-from flask_login import login_required, current_user
+from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask_login import current_user, login_required
 
-from appname.constants import MAX_TEAM_SIZE
-from appname.models import get_or_none
-from appname.models.teams import Team, TeamMember
 from appname.extensions import stripe
 from appname.forms import SimpleForm
 from appname.forms.teams import InviteMemberForm
-from appname.helpers.session import current_membership
+from appname.models import get_or_none
+from appname.models.teams import Team, TeamMember
 
 blueprint = Blueprint('dashboard_team', __name__)
 
@@ -42,9 +40,9 @@ def add_member(team_id):
         existing_members = [member.user.email for member in team.members if member.user]
         if form.email.data not in existing_members:
             TeamMember.invite(team, form.email.data, form.role.data, current_user)
-            flash('Invited {}'.format(form.email.data), 'success')
+            flash(f'Invited {form.email.data}', 'success')
         else:
-            flash('{} is already a member'.format(form.email.data), 'warning')
+            flash(f'{form.email.data} is already a member', 'warning')
         return redirect(url_for('.index', team_id=team_id))
     else:
         flash('There was an error', 'warning')
@@ -83,7 +81,7 @@ def remove_member(team_id, invite_id):
         removed_user = team_member.user
         old_email = team_member.email
         team_member.delete(force=True)  # Actually delete the model
-        flash('Removed {}'.format(old_email), 'success')
+        flash(f'Removed {old_email}', 'success')
         if removed_user != current_user:
             return redirect(url_for('.index', team_id=team_id))
         else:

@@ -2,6 +2,7 @@ from flask import render_template
 
 from appname.mailers import Mailer
 
+
 class NotificationMailer(Mailer):
     TEMPLATE = 'email/notification.html'
     DEFAULT_SUBJECT = "[appname] New notification"

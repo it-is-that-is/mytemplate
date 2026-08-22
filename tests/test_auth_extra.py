@@ -2,8 +2,8 @@ import pytest
 from jinja2 import TemplateNotFound
 
 import appname.billing_plans as billing_plans_module
-import appname.constants as constants
 import appname.controllers.auth as auth_controller
+from appname import constants
 from appname.extensions import hashids, token
 from appname.models import db
 from appname.models.teams import TeamMember

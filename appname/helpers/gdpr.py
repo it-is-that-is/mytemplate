@@ -1,5 +1,5 @@
-import logging
 import json
+import logging
 from collections import defaultdict
 
 from flask_mail import Attachment

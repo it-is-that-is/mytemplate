@@ -1,15 +1,13 @@
 import logging
 
-from flask_login import UserMixin, AnonymousUserMixin
-from werkzeug.security import generate_password_hash, check_password_hash
-
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
+from flask_login import AnonymousUserMixin, UserMixin
 from sqlalchemy.orm.collections import attribute_mapped_collection
 from sqlalchemy_utils.types import EncryptedType
 from sqlalchemy_utils.types.encrypted.encrypted_type import FernetEngine
+from werkzeug.security import check_password_hash, generate_password_hash
 
-from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
-
-from appname.models import db, Model, ModelProxy, global_encryption_key_iv
+from appname.models import Model, ModelProxy, db, global_encryption_key_iv
 
 logger = logging.getLogger(__name__)
 
@@ -40,10 +38,10 @@ class User(Model, UserMixin):
         "email_confirmed": "Whether the email was confirmation"
     }
 
-    # TODO: Refactor out our override of __init__. It should either be a 
-    # seperate function or a class method. 
+    # TODO: Refactor out our override of __init__. It should either be a
+    # seperate function or a class method.
     def __init__(self, email=None, password=None, admin=False,
-                 email_confirmed=False, team=None, name=None, 
+                 email_confirmed=False, team=None, name=None,
                  deleted=False, role='user'):
         if not email:
             raise ValueError('No Email Provided')
@@ -60,7 +58,7 @@ class User(Model, UserMixin):
             self.set_password(password)
 
         if not team:
-            team_name = "{0}'s team".format(email)
+            team_name = f"{email}'s team"
             ModelProxy.teams.Team.create(team_name, self)
 
     def set_password(self, password):
@@ -118,7 +116,7 @@ class User(Model, UserMixin):
         return self.active_memberships[0].id
 
     def __repr__(self):
-        return '<User {0}>'.format(self.email)
+        return f'<User {self.email}>'
 
     @classmethod
     def lookup(cls, email):

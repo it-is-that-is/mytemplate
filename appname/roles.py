@@ -1,7 +1,9 @@
 """ This file defines utilities used to enforce user roles. """
-from flask import current_user
-from functools import wraps
 from enum import Enum
+from functools import wraps
+
+from flask import current_user
+
 
 class Roles(Enum):
     GUEST = 'guest'

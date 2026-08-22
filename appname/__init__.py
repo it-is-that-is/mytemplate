@@ -1,45 +1,42 @@
 #! ../env/bin/python
 
-from flask import Flask, render_template, request
 import sentry_sdk
+from flask import Flask, render_template, request
 from sentry_sdk import last_event_id
 from sentry_sdk.integrations.flask import FlaskIntegration
 from webassets.loaders import PythonLoader as PythonAssetsLoader
 
-from appname import assets
-from appname import constants
-from appname.models import db
-from appname.api.resources import api_blueprint
+from appname import assets, constants, utils
 from appname.api import handle_api_error
-from appname.controllers.main import main
-from appname.controllers.auth import auth
-from appname.controllers.oauth import google_blueprint
-from appname.controllers.store import store
-from appname.controllers.settings import settings_blueprint
+from appname.api.resources import api_blueprint
 from appname.controllers.admin.jobs import jobs
-from appname.controllers.webhooks.stripe import stripe_blueprint
+from appname.controllers.auth import auth
 from appname.controllers.dashboard import dashboard_blueprints
-
-from appname import utils
-from appname.helpers import view as view_helpers
+from appname.controllers.main import main
+from appname.controllers.oauth import google_blueprint
+from appname.controllers.settings import settings_blueprint
+from appname.controllers.store import store
+from appname.controllers.webhooks.stripe import stripe_blueprint
 from appname.converter import custom_converters
 from appname.extensions import (
     admin,
     assets_env,
+    branding,
     cache,
     csrf,
     debug_toolbar,
     hashids,
-    login_manager,
     limiter,
+    login_manager,
     mail,
     rq2,
     storage,
     stripe,
     token,
-    branding
 )
 from appname.forms import SimpleForm
+from appname.helpers import view as view_helpers
+from appname.models import db
 
 
 def create_app(object_name):

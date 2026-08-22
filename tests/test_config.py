@@ -1,5 +1,6 @@
 from appname import create_app
 
+
 class TestConfig:
     def test_dev_config(self):
         """ Tests if the development config loads correctly """

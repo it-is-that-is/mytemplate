@@ -1,9 +1,8 @@
 import logging
 
-from appname.models import db, Model
-from appname.models.user import User
 from appname.mailers.teams import InviteEmail
-
+from appname.models import Model, db
+from appname.models.user import User
 from appname.utils.token import url_safe_token
 
 logger = logging.getLogger(__name__)

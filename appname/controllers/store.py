@@ -1,11 +1,9 @@
 import stripe
-
 from flask import Blueprint, flash, render_template, request
 
-from appname.models.user import User
 from appname.extensions import csrf
-
 from appname.mailers.store import PurchaseReceipt
+from appname.models.user import User
 
 store = Blueprint('store', __name__)
 

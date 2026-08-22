@@ -1,14 +1,15 @@
-from wtforms import validators, StringField, PasswordField, HiddenField
+from wtforms import HiddenField, PasswordField, StringField, validators
 
 from appname.forms import BaseForm
 from appname.models.user import User
+
 
 class LoginForm(BaseForm):
     email = StringField('Email', validators=[validators.email(), validators.InputRequired()])
     password = PasswordField('Password', validators=[validators.InputRequired()])
 
     def validate(self, extra_validators=None):
-        check_validate = super(LoginForm, self).validate(extra_validators=extra_validators)
+        check_validate = super().validate(extra_validators=extra_validators)
 
         # if our field validators do not pass
         if not check_validate:
@@ -36,7 +37,7 @@ class SignupForm(BaseForm):
     invite_secret = HiddenField('Invite ID')
 
     def validate(self, extra_validators=None):
-        check_validate = super(SignupForm, self).validate(extra_validators=extra_validators)
+        check_validate = super().validate(extra_validators=extra_validators)
 
         # if our field validators do not pass
         if not check_validate:

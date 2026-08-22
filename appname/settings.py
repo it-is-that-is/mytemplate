@@ -1,7 +1,8 @@
 import os
 import tempfile
 
-class Config(object):
+
+class Config:
     # run flask generate_secret_key
     SECRET_KEY = os.getenv('SECRET_KEY', 'SET-THIS-ENV-VAR-IN-PROD!-esdas#!3de*o0alas')
     SQLALCHEMY_TRACK_MODIFICATIONS = False

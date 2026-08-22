@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
 
+
 def strip_whitespace(value):
     if value and hasattr(value, "strip"):
         return value.strip()
