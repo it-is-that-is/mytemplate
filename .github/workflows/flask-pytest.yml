@@ -1,4 +1,4 @@
-name: Flask PyTest CI
+name: MyTemplate CI
 
 on:
   push:
@@ -13,24 +13,49 @@ jobs:
       max-parallel: 2
       matrix:
         python-version: [3.12, 3.13]
-
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt', '**/requirements-dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - name: Install Dependencies
+
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r requirements.txt -r requirements-dev.txt
 
-      - name: Run Tests
+      - name: Install Playwright browser
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run backend tests, lint, and security scan
+        run: make report
+
+      - name: Seed database
+        run: make resetdb
+
+      - name: Start app for UI test
         run: |
-          py.test --junitxml=test-reports/results.xml --cov-report term-missing --cov=appname tests/
+          python -m flask --debug run &
+          for i in $(seq 1 15); do
+            curl -sf http://127.0.0.1:5000/ > /dev/null && break
+            sleep 1
+          done
+
+      - name: Run UI test
+        run: make test-ui
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-reports-py${{ matrix.python-version }}
+          path: reports/
