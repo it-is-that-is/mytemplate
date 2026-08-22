@@ -1,0 +1,6 @@
+[tool.ruff]
+line-length = 100
+exclude = ["env", "migrations", "__pycache__", "instance", "tmp"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
