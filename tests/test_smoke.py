@@ -5,17 +5,11 @@ def test_homepage_loads(testapp):
 
 
 def test_login_page_shows_mytemplate_branding(testapp):
-    """The login page title should reflect the MyTemplate rebrand.
-
-    Note: the page body legitimately contains "Ignite" in one place - a pinned
-    CDN URL (rawcdn.githack.com/Sumukh/Ignite/...) referencing the original
-    template's CSS asset by commit hash. That's an external resource reference,
-    not app branding, so this test checks the <title> tag specifically rather
-    than asserting "Ignite" is absent from the whole page.
-    """
+    """The login page title should reflect the MyTemplate rebrand."""
     response = testapp.get("/login")
     assert response.status_code == 200
     assert b"<title>MyTemplate" in response.data
+    assert b"Ignite" not in response.data
 
 
 def test_user_can_log_in(testapp):
@@ -26,4 +20,3 @@ def test_user_can_log_in(testapp):
         follow_redirects=True,
     )
     assert response.status_code == 200
-

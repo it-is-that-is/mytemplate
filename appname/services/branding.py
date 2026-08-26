@@ -16,10 +16,10 @@ class Branding:
         return email
     @property
     def icon_path(self):
-        return "public/mytemplate/mytemplate-logo@2x.png"   # was public/ignite/ignite-logo@2x.png
+        return "public/mytemplate/mytemplate-logo@2x.png"
     @property
     def svg_icon(self):
-        return "public/mytemplate/mytemplate-icon.svg"       # was public/ignite/ignite-icon.svg
+        return "public/mytemplate/mytemplate-icon.svg"
     @property
     def website_domain(self):
         return "mytemplate.com"               # was "appname.com"
@@ -31,5 +31,5 @@ class Branding:
         return "United States"
     @property
     def full_logo_path(self):
-        return "public/mytemplate/mytemplate-logo@2x.png"    # was public/ignite/ignite-logo@2x.png
+        return "public/mytemplate/mytemplate-logo@2x.png" 
 

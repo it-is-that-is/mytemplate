@@ -5,7 +5,7 @@ Use this when you want to get productive in this repo with minimal context.
 ## 1) Setup
 
 ```bash
-cd /Users/sumukh/code/Ignite
+cd /Users/sumukh/code/MyTemplate
 python3 -m venv env
 source env/bin/activate
 python -m pip install --upgrade pip

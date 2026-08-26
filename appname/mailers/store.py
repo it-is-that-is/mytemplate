@@ -9,7 +9,7 @@ from appname.mailers import Mailer
 
 class PurchaseReceipt(Mailer):
     TEMPLATE = 'email/purchase_receipt.html'
-    DEFAULT_SUBJECT = "Your purchase of Ignite Starter"
+    DEFAULT_SUBJECT = "Your purchase of MyTemplate Starter"
 
     def send(self):
         key = f"{self.recipient.email}-{dt.now()}"

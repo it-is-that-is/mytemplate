@@ -11,7 +11,7 @@ from appname.models import Model, ModelProxy, db, global_encryption_key_iv
 
 logger = logging.getLogger(__name__)
 
-# (Ignite) TODO: Cleanup the methods here
+# (Legacy) TODO: Cleanup the methods here
 
 class User(Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
