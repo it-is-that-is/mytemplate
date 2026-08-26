@@ -1,6 +1,6 @@
 [![MyTemplate](https://user-images.githubusercontent.com/882381/45938197-49cfb880-bf7c-11e8-91ea-94fffd9d054a.png)](https://github.com/sumukh/mytemplate)
 
-# MyTemplate for Flask [![Flask PyTest CI](https://github.com/Sumukh/MyTemplate/actions/workflows/flask-pytest.yml/badge.svg)](https://github.com/Sumukh/MyTemplate/actions/workflows/flask-pytest.yml)
+# MyTemplate for Flask [![Flask PyTest CI](https://github.com/it-is-that-is/mytemplate/actions/workflows/flask-pytest.yml/badge.svg)](https://github.com/it-is-that-is/mytemplate/actions/workflows/flask-pytest.yml)
 
 MyTemplate is a scaffold for starting new SaaS applications built using Python and Flask. It takes care of the boilerplate code (like User Registration, OAuth, Teams, and Billing), allowing you to focus on building your application. MyTemplate is built upon best practices for modern Flask applications.
 
