@@ -56,8 +56,8 @@ class ProdConfig(Config):
 
     # You should be using HTTPS in production anyway, but if you are not, turn
     # these two off
-    SESSION_COOKIE_SECURE = True
-    REMEMBER_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = os.getenv('FORCE_HTTPS_COOKIES', 'true').lower() == 'true'
+    REMEMBER_COOKIE_SECURE = os.getenv('FORCE_HTTPS_COOKIES', 'true').lower() == 'true'
 
 class DevConfig(Config):
     ENV = 'dev'
